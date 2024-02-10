@@ -15,7 +15,14 @@ ul {
     padding: revert;
 }
 
-
 pre, code {
     @apply max-w-full overflow-x-scroll;
+}
+
+h2 {
+    @apply text-xl font-bold my-4;
+}
+
+h3 {
+    @apply text-lg font-bold my-3;
 }
