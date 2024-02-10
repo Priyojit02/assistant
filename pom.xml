@@ -12,8 +12,9 @@
 
     <properties>
         <java.version>17</java.version>
-        <hilla.version>2.1.3</hilla.version>
+        <hilla.version>2.5.6</hilla.version>
         <selenium.version>4.8.3</selenium.version>
+        <langchain.version>0.27.1</langchain.version>
     </properties>
 
     <parent>
@@ -38,12 +39,12 @@
         <dependency>
             <groupId>dev.hilla</groupId>
             <artifactId>hilla-react</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>commons-logging</groupId>-->
+<!--                    <artifactId>commons-logging</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>dev.hilla</groupId>
@@ -56,22 +57,17 @@
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j</artifactId>
-            <version>0.27.1</version>
+            <version>${langchain.version}</version>
         </dependency>
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-open-ai</artifactId>
-            <version>0.27.1</version>
+            <version>${langchain.version}</version>
         </dependency>
         <dependency>
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-pinecone</artifactId>
-            <version>0.27.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.knuddels</groupId>
-            <artifactId>jtokkit</artifactId>
-            <version>0.6.1</version>
+            <version>${langchain.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

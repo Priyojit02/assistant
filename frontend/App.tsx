@@ -1,36 +1,36 @@
 import { MessageInput } from '@hilla/react-components/MessageInput';
 import { useEffect, useState } from 'react';
-import { DocsAssistantEndpoint } from 'Frontend/generated/endpoints.js';
-import ChatCompletionMessage from 'Frontend/generated/com/example/application/service/openai/model/ChatCompletionMessage.js';
-import Role from 'Frontend/generated/com/example/application/service/openai/model/ChatCompletionMessage/Role.js';
 import ChatMessage from './ChatMessage.js';
 import Framework from 'Frontend/generated/com/example/application/service/Framework.js';
 import { Select, SelectItem } from '@hilla/react-components/Select';
 import { VirtualList } from '@hilla/react-components/VirtualList';
 import './main.css';
+import { DocsAssistantService } from 'Frontend/generated/endpoints';
+
+const chatId = new Date().getTime().toString();
 
 export default function App() {
   const [working, setWorking] = useState(false);
   const [framework, setFramework] = useState('');
   const [supportedFrameworks, setSupportedFrameworks] = useState<Framework[]>([]);
-  const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    DocsAssistantEndpoint.getSupportedFrameworks().then((supportedFrameworks) => {
+    DocsAssistantService.getSupportedFrameworks().then((supportedFrameworks) => {
       setSupportedFrameworks(supportedFrameworks);
       setFramework(supportedFrameworks[0].value!);
     });
   }, []);
 
-  async function getCompletion(text: string) {
+  async function getCompletion(message: string) {
     if (working) return;
     setWorking(true);
 
-    const messageHistory = [
+    const messageHistory: Message[] = [
       ...messages,
       {
-        role: Role.USER,
-        content: text,
+        role: 'user',
+        content: message,
       },
     ];
 
@@ -46,8 +46,8 @@ export default function App() {
         setMessages((msg) => [
           ...msg,
           {
-            role: Role.ASSISTANT,
-            content: '',
+            role: 'bot',
+            content: chunk,
           },
         ]);
         firstChunk = false;
@@ -61,7 +61,7 @@ export default function App() {
     }
 
     // Get completion as stream
-    DocsAssistantEndpoint.getCompletionStream(messageHistory, framework)
+    DocsAssistantService.getCompletionStream(chatId, framework, message)
       .onNext((chunk) => appendToLastMessage(chunk))
       .onComplete(() => setWorking(false))
       .onError(() => {
