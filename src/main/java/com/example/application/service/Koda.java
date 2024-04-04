@@ -2,9 +2,10 @@ package com.example.application.service;
 
 import dev.langchain4j.service.*;
 import dev.langchain4j.service.spring.AiService;
-import reactor.core.publisher.Flux;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 
 @AiService
+@RegisterReflectionForBinding(Koda.class)
 public interface Koda {
 
     @SystemMessage("""

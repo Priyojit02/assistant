@@ -24,31 +24,26 @@ import org.springframework.context.annotation.Configuration;
 public class AiServiceConfig {
 
     @Bean
-    EmbeddingStore<TextSegment> embeddingStore(@Value("${pinecone.api.key}") String apiKey) {
+    EmbeddingStore<TextSegment> embeddingStore(
+            @Value("${pinecone.api.key}") String apiKey,
+            @Value("${pinecone.environment}") String environment,
+            @Value("${pinecone.project}") String projectId) {
         return PineconeEmbeddingStore.builder()
                 .apiKey(apiKey)
-                .environment("aped-4627-b74a")
-                .projectId("9gyeph2")
+                .environment(environment)
+                .projectId(projectId)
                 .index("docs")
                 .nameSpace("flow")
                 .metadataTextKey("article")
                 .build();
     }
 
+// TODO: add when it gets fixed
 //    @Bean
 //    RetrievalAugmentor retrievalAugmentor(
-//            EmbeddingStore<TextSegment> embeddingStore,
-//            EmbeddingModel embeddingModel,
-//            ChatLanguageModel model
+//            ChatLanguageModel model,
+//            ContentRetriever retriever
 //    ) {
-//
-//        var retriever = EmbeddingStoreContentRetriever.builder()
-//                .embeddingStore(embeddingStore)
-//                .embeddingModel(embeddingModel)
-//                .maxResults(5)
-//                .minScore(0.6)
-//                .build();
-//
 //        return DefaultRetrievalAugmentor.builder()
 //                .queryTransformer(new CompressingQueryTransformer(model))
 //                .contentRetriever(retriever)
