@@ -23,20 +23,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AiServiceConfig {
 
-    @Bean
-    EmbeddingStore<TextSegment> embeddingStore(
-            @Value("${pinecone.api.key}") String apiKey,
-            @Value("${pinecone.environment}") String environment,
-            @Value("${pinecone.project}") String projectId) {
-        return PineconeEmbeddingStore.builder()
-                .apiKey(apiKey)
-                .environment(environment)
-                .projectId(projectId)
-                .index("docs")
-                .nameSpace("flow")
-                .metadataTextKey("article")
-                .build();
-    }
+//    @Bean
+//    EmbeddingStore<TextSegment> embeddingStore(
+//            @Value("${pinecone.api.key}") String apiKey,
+//            @Value("${pinecone.environment}") String environment,
+//            @Value("${pinecone.project}") String projectId) {
+//        return PineconeEmbeddingStore.builder()
+//                .apiKey(apiKey)
+//                .environment(environment)
+//                .projectId(projectId)
+//                .index("docs")
+//                .nameSpace("flow")
+//                .metadataTextKey("article")
+//                .build();
+//    }
 
 // TODO: add when it gets fixed
 //    @Bean
