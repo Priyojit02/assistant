@@ -21,7 +21,7 @@ public class DocsAssistantService {
     public Flux<String> getCompletionStream(String chatId, String framework, String message) {
         Sinks.Many<String> sink = Sinks.many().unicast().onBackpressureBuffer();
 
-        koda.getStream(chatId, framework, message)
+        koda.getCompletion(chatId, framework, message)
                 .onNext(sink::tryEmitNext)
                 .onComplete(e -> sink.tryEmitComplete())
                 .onError(sink::tryEmitError)
@@ -33,7 +33,7 @@ public class DocsAssistantService {
     public List<Framework> getSupportedFrameworks() {
         return List.of(
                 new Framework("Flow", "flow"),
-                new Framework("Hilla with React", "hilla-react"),
+                new Framework("Hilla with React", "hilla"),
                 new Framework("Hilla with work Lit", "hilla-lit")
         );
     }

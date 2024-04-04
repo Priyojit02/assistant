@@ -1,7 +1,10 @@
 package com.example.application.service;
 
 import dev.langchain4j.service.*;
+import dev.langchain4j.service.spring.AiService;
+import reactor.core.publisher.Flux;
 
+@AiService
 public interface Koda {
 
     @SystemMessage("""
@@ -14,10 +17,6 @@ public interface Koda {
             - Output markdown
             - ALWAYS include code snippets if available
             """)
-    TokenStream getStream(
-            @MemoryId String chatId,
-            @V("framework") String framework,
-            @UserMessage String message
-    );
+    TokenStream getCompletion(@MemoryId String chatId, @V("framework") String framework, @UserMessage String message);
 
 }
